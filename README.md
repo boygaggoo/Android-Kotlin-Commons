@@ -1,5 +1,6 @@
 # Android-Kotlin-Commons
 
+[![GitHub version](https://badge.fury.io/gh/dewarder%2FAndroid-Kotlin-Commons.svg)](https://badge.fury.io/gh/dewarder%2FAndroid-Kotlin-Commons)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-AndroidKotlinCommons-blue.svg?style=flat)](https://android-arsenal.com/details/1/5343)
 
 Small library that contains common extensions for Android. Aims:
