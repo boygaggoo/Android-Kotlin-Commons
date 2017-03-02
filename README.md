@@ -20,8 +20,16 @@ compile 'com.dewarder:akommons:0.0.4'
 
 ### [Views](https://github.com/dewarder/Android-Kotlin-Commons/wiki/View)
 
-##### Visibility
+### Visibility
 
+```kotlin
+override fun onCreate(savedInstanceState: Bundle) {
+    ...
+    firstView.isVisible = true
+    secondView.isVisible = false
+    ...
+}
+```
 <details> 
   <summary>Before</summary>
   <pre lang="kotlin">
@@ -34,16 +42,15 @@ override fun onCreate(savedInstanceState: Bundle) {
   </pre>
 </details>
 
+### Auto-casting
+
 ```kotlin
+private lateinit var linearLayout: LinearLayout
+ 
 override fun onCreate(savedInstanceState: Bundle) {
-    ...
-    firstView.isVisible = true
-    secondView.isVisible = false
-    ...
+    linearLayout = getViewById(R.id.linearLayout)
 }
 ```
-##### Auto-casting
-
 <details> 
   <summary>Before</summary>
   <pre lang="kotlin">
@@ -55,15 +62,16 @@ override fun onCreate(savedInstanceState: Bundle) {
   </pre>
 </details>
 
+### Padding
+
 ```kotlin
-private lateinit var linearLayout: LinearLayout
- 
 override fun onCreate(savedInstanceState: Bundle) {
-    linearLayout = getViewById(R.id.linearLayout)
+    ...
+    firstView.setOptionalPadding(bottom = 16)
+    secondView.setAllPadding(16)
+    ...
 }
 ```
-
-#####Padding
 
 <details> 
   <summary>Before</summary>
@@ -77,17 +85,19 @@ override fun onCreate(savedInstanceState: Bundle) {
   </pre>
 </details>
 
+
+### Post runnables
+
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
     ...
-    firstView.setOptionalPadding(bottom = 16)
-    secondView.setAllPadding(16)
+    refreshLayout.postDelayedApply(3000) {
+        isRefreshing = false
+        clearAnimation()
+    }
     ...
 }
 ```
-
-#####Post runnables
-
 <details> 
   <summary>Before</summary>
   <pre lang="kotlin">
@@ -102,21 +112,24 @@ override fun onCreate(savedInstanceState: Bundle) {
   </pre>
 </details>
 
-```kotlin
-override fun onCreate(savedInstanceState: Bundle) {
-    ...
-    refreshLayout.postDelayedApply(3000) {
-        isRefreshing = false
-        clearAnimation()
-    }
-    ...
-}
-```
 Also see [_postApply_](https://github.com/dewarder/Android-Kotlin-Commons/wiki/View#inline-fun--tpostapplycrossinline-block-t---unit),  [_postLet_](https://github.com/dewarder/Android-Kotlin-Commons/wiki/View#inline-fun--tpostletcrossinline-block-t---unit), [_postDelayedLet_](https://github.com/dewarder/Android-Kotlin-Commons/wiki/View#inline-fun--tpostletcrossinline-block-t---unit)
 
 ### [Shared preferences](https://github.com/dewarder/Android-Kotlin-Commons/wiki/Shared-preferences)
 
-##### Delegates
+### Delegates
+
+```kotlin
+class AccountRepository : SharedPreferencesProvider {
+ 
+    override val sharedPreferences: SharedPreferences
+ 
+    var currentUserId by PreferencesDelegates.int()
+     
+    constructor(context: Context) {
+        this.sharedPreferences = context.defaultSharedPreferences
+    }
+}
+```
 
 <details> 
   <summary>Before</summary>
@@ -144,20 +157,15 @@ class AccountRepository {
   </pre>
 </details>
 
-```kotlin
-class AccountRepository : SharedPreferencesProvider {
- 
-    override val sharedPreferences: SharedPreferences
- 
-    var currentUserId by PreferencesDelegates.int()
-     
-    constructor(context: Context) {
-        this.sharedPreferences = context.defaultSharedPreferences
-    }
-}
-```
+### Shortcuts
 
-##### Shortcuts
+```kotlin
+sharedPreferences.save(CURRENT_USER_ID, userId)
+ 
+    ...
+    
+sharedPreferences.save(BEARER_TOKEN, token, force = true)
+```
 <details> 
   <summary>Before</summary>
   <pre lang="kotlin">
@@ -173,17 +181,20 @@ sharedPreferences.edit()
   </pre>
 </details>
 
-```kotlin
-sharedPreferences.save(CURRENT_USER_ID, userId)
- 
-    ...
-    
-sharedPreferences.save(BEARER_TOKEN, token, force = true)
-```
 
 ### [Context](https://github.com/dewarder/Android-Kotlin-Commons/wiki/Context)
 
-##### Compat
+### Compat
+
+```kotlin
+override fun onCreate(savedInstanceState: Bundle) {
+    ...
+    val color = getThemedColor(R.color.cyan)
+    val drawable = getThemedDrawable(R.drawable.background)
+    val stateList = getThemedColorStateList(R.drawable.state_list)
+    ...
+}
+```
 <details> 
   <summary>Before</summary>
   <pre lang="kotlin">
@@ -197,17 +208,16 @@ override fun onCreate(savedInstanceState: Bundle) {
   </pre>
 </details>
 
+### Services
+
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
     ...
-    val color = getThemedColor(R.color.cyan)
-    val drawable = getThemedDrawable(R.drawable.background)
-    val stateList = getThemedColorStateList(R.drawable.state_list)
+    val inflater = layoutInflater
+    val sharedPreferences = defaultSharedPreferences
     ...
 }
 ```
-
-##### Services
 <details> 
   <summary>Before</summary>
   <pre lang="kotlin">
@@ -220,16 +230,16 @@ override fun onCreate(savedInstanceState: Bundle) {
   </pre>
 </details>
 
+### Toasts
+
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
     ...
-    val inflater = layoutInflater
-    val sharedPreferences = defaultSharedPreferences
+    showShortToast("Hi!")
+    showLongToast(R.string.hello)
     ...
 }
 ```
-
-##### Toasts
 <details> 
   <summary>Before</summary>
   <pre lang="kotlin">
@@ -242,16 +252,18 @@ override fun onCreate(savedInstanceState: Bundle) {
   </pre>
 </details>
 
+### Permissions
+
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
     ...
-    showShortToast("Hi!")
-    showLongToast(R.string.hello)
+    if (isPermissionsGranted(Permission.WRITE_EXTERNAL_STORAGE, Permission.ACCESS_FINE_LOCATION)) {
+        ...        
+    }
     ...
 }
 ```
 
-##### Permissions
 <details> 
   <summary>Before</summary>
   <pre lang="kotlin">
@@ -268,19 +280,22 @@ override fun onCreate(savedInstanceState: Bundle) {
   </pre>
 </details>
 
+### [SQLiteDatabase](https://github.com/dewarder/Android-Kotlin-Commons/wiki/SQLiteDatabase)
+
+### Queries
+
 ```kotlin
-override fun onCreate(savedInstanceState: Bundle) {
+val db: SQLiteDatabase
+ 
+override fun getAllUsers() {
     ...
-    if (isPermissionsGranted(Permission.WRITE_EXTERNAL_STORAGE, Permission.ACCESS_FINE_LOCATION)) {
-        ...        
-    }
+    val cursor = db.executeQuery(table = TABLE_USERS, orderBy = COLUMN_NAME)
+    ...
+    db.executeDelete(table = TABLE_USERS)
     ...
 }
 ```
 
-### [SQLiteDatabase](https://github.com/dewarder/Android-Kotlin-Commons/wiki/SQLiteDatabase)
-
-##### Queries
 <details> 
   <summary>Before</summary>
   <pre lang="kotlin">
@@ -296,21 +311,17 @@ override fun getAllUsers() {
   </pre>
 </details>
 
-```kotlin
-val db: SQLiteDatabase
- 
-override fun getAllUsers() {
-    ...
-    val cursor = db.executeQuery(table = TABLE_USERS, orderBy = COLUMN_NAME)
-    ...
-    db.executeDelete(table = TABLE_USERS)
-    ...
-}
-```
-
 Also see _executeInsert_, _executeUpdate_.
 
-##### _Use_ with SQLiteDatabase and Cursor
+### _Use_ with SQLiteDatabase and Cursor
+
+```kotlin
+fun runQuery(helper: SQLiteOpenHelper) = helper.writableDatabase.use { db ->
+    db.query( ... ).use { cursor ->
+ 
+    }
+}
+```
  <details> 
   <summary>Before</summary>
   <pre lang="kotlin">
@@ -323,14 +334,6 @@ fun runQuery(helper: SQLiteOpenHelper) {
 }
   </pre>
 </details>
-
-```kotlin
-fun runQuery(helper: SQLiteOpenHelper) = helper.writableDatabase.use { db ->
-    db.query( ... ).use { cursor ->
- 
-    }
-}
-```
 
 **Important**: you should use extension method, not from kotlin-stlib because you can get `ClassCastException`. See [this link](http://stackoverflow.com/questions/39430179/kotlin-closable-and-sqlitedatabase-on-android).
 ## License
