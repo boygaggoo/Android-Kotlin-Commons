@@ -22,17 +22,17 @@ compile 'com.dewarder:akommons:0.0.4'
 
 ##### Visibility
 
-Before
-
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 override fun onCreate(savedInstanceState: Bundle) {
     ...
     firstView.visibility = View.VISIBLE
     secondView.visibility = View.GONE
     ...
 }
-```
-After
+  </pre>
+</details>
 
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
@@ -44,16 +44,16 @@ override fun onCreate(savedInstanceState: Bundle) {
 ```
 ##### Auto-casting
 
-Before
-
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 private lateinit var linearLayout: LinearLayout
  
 override fun onCreate(savedInstanceState: Bundle) {
     linearLayout = findViewById(R.id.linearLayout) as LinearLayout
 }
-```
-After
+  </pre>
+</details>
 
 ```kotlin
 private lateinit var linearLayout: LinearLayout
@@ -65,16 +65,18 @@ override fun onCreate(savedInstanceState: Bundle) {
 
 #####Padding
 
-Before
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 override fun onCreate(savedInstanceState: Bundle) {
     ...
     firstView.setPadding(firstView.paddingLeft, firstView.paddingTop, firstView.paddingRight, 16)
     secondView.setPadding(16, 16, 16, 16)
     ...
 }
-```
-After
+  </pre>
+</details>
+
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
     ...
@@ -86,8 +88,9 @@ override fun onCreate(savedInstanceState: Bundle) {
 
 #####Post runnables
 
-Before
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 override fun onCreate(savedInstanceState: Bundle) {
     ...
     refreshLayout.postDelayed({
@@ -96,8 +99,9 @@ override fun onCreate(savedInstanceState: Bundle) {
     }, 3000)
     ...
 }
-```
-After
+  </pre>
+</details>
+
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
     ...
@@ -114,9 +118,9 @@ Also see [_postApply_](https://github.com/dewarder/Android-Kotlin-Commons/wiki/V
 
 ##### Delegates
 
-Before
-
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 class AccountRepository {
  
     val sharedPreferences: SharedPreferences
@@ -137,9 +141,8 @@ class AccountRepository {
         const val CURRENT_USER_ID = "CURRENT_USER_ID"
     }
 }
-```
-
-After
+  </pre>
+</details>
 
 ```kotlin
 class AccountRepository : SharedPreferencesProvider {
@@ -155,9 +158,9 @@ class AccountRepository : SharedPreferencesProvider {
 ```
 
 ##### Shortcuts
-Before
-
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 sharedPreferences.edit()
     .putInt(CURRENT_USER_ID, userId)
     .apply()
@@ -167,9 +170,9 @@ sharedPreferences.edit()
 sharedPreferences.edit()
     .putString(BEARER_TOKEN, token)
     .commit()
-```
+  </pre>
+</details>
 
-After
 ```kotlin
 sharedPreferences.save(CURRENT_USER_ID, userId)
  
@@ -181,8 +184,9 @@ sharedPreferences.save(BEARER_TOKEN, token, force = true)
 ### [Context](https://github.com/dewarder/Android-Kotlin-Commons/wiki/Context)
 
 ##### Compat
-Before
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 override fun onCreate(savedInstanceState: Bundle) {
     ...
     val color = ContextCompat.getColor(this, R.color.cyan)
@@ -190,9 +194,9 @@ override fun onCreate(savedInstanceState: Bundle) {
     val stateList = ContextCompat.getColorStateList(this, R.drawable.state_list)
     ...
 }
-```
+  </pre>
+</details>
 
-After
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
     ...
@@ -204,17 +208,18 @@ override fun onCreate(savedInstanceState: Bundle) {
 ```
 
 ##### Services
-Before
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 override fun onCreate(savedInstanceState: Bundle) {
     ...
     val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
     ...
 }
-```
+  </pre>
+</details>
 
-After
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
     ...
@@ -225,18 +230,18 @@ override fun onCreate(savedInstanceState: Bundle) {
 ```
 
 ##### Toasts
-
-Before
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 override fun onCreate(savedInstanceState: Bundle) {
     ...
     Toast.makeText(this, "Hi!", Toast.LENGTH_SHORT).show()
     Toast.makeText(this, R.string.hello, Toast.LENGTH_LONG).show()
     ...
 }
-```
+  </pre>
+</details>
 
-After
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
     ...
@@ -247,9 +252,9 @@ override fun onCreate(savedInstanceState: Bundle) {
 ```
 
 ##### Permissions
-
-Before
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 override fun onCreate(savedInstanceState: Bundle) {
     ...
     if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED &&
@@ -260,9 +265,9 @@ override fun onCreate(savedInstanceState: Bundle) {
     }
     ...
 }
-```
+  </pre>
+</details>
 
-After
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle) {
     ...
@@ -276,10 +281,9 @@ override fun onCreate(savedInstanceState: Bundle) {
 ### [SQLiteDatabase](https://github.com/dewarder/Android-Kotlin-Commons/wiki/SQLiteDatabase)
 
 ##### Queries
-
-Before
-
-```kotlin
+<details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 val db: SQLiteDatabase
  
 override fun getAllUsers() {
@@ -289,8 +293,8 @@ override fun getAllUsers() {
     db.delete(TABLE_USERS, null, null)
     ...
 }
-```
-After
+  </pre>
+</details>
 
 ```kotlin
 val db: SQLiteDatabase
@@ -307,9 +311,9 @@ override fun getAllUsers() {
 Also see _executeInsert_, _executeUpdate_.
 
 ##### _Use_ with SQLiteDatabase and Cursor
- 
-Before
-```kotlin
+ <details> 
+  <summary>Before</summary>
+  <pre lang="kotlin">
 fun runQuery(helper: SQLiteOpenHelper) {
     val db = helper.writableDatabase
     val cursor = db.query( ... )
@@ -317,8 +321,9 @@ fun runQuery(helper: SQLiteOpenHelper) {
     cursor.close()
     db.close()
 }
-```
-After
+  </pre>
+</details>
+
 ```kotlin
 fun runQuery(helper: SQLiteOpenHelper) = helper.writableDatabase.use { db ->
     db.query( ... ).use { cursor ->
